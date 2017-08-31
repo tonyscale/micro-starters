@@ -1,0 +1,5 @@
+# Auto Configure
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.innei.boot.starter.redis.RedisTemplateAutoConfigure,\
+com.innei.boot.starter.redis.RedisExpireAutoConfigure
+
