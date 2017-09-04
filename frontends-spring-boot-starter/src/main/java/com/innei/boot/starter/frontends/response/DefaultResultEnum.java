@@ -13,24 +13,24 @@ public enum DefaultResultEnum implements Result {
 
 
     private Integer code;
-    private String result;
+    private String msg;
 
 
     DefaultResultEnum(Integer code,String result){
         this.code = code;
-        this.result = result;
+        this.msg = result;
     }
 
     public Integer getCode(){
         return code;
     }
 
-    public String getResult(){
-        return result;
+    public String getMsg(){
+        return msg;
     }
 
     @Override
     public ResultInfo resultInfo() {
-        return new ResultInfo(code,result,null);
+        return new ResultInfo(code, msg,null);
     }
 }

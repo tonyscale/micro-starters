@@ -42,7 +42,7 @@ public class ResponseUtil {
     public static void toResponse(HttpServletResponse response, @NonNull ResultInfo resultInfo, Object... args) throws IOException {
 
         if(args.length > 0){
-            resultInfo.setResult(String.format(resultInfo.getResult(), args));
+            resultInfo.setMsg(String.format(resultInfo.getMsg(), args));
         }
 
         String res = JSON.toJSONString(resultInfo, SerializerFeature.WriteNullListAsEmpty);

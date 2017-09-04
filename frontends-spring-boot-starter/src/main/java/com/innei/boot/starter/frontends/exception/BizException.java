@@ -21,7 +21,7 @@ public class BizException extends RuntimeException{
     }
 
 	/**
-     * 在业务中捕获的异常，带上错误码（code） 错误原因（result） 捕获到异常（cause）
+     * 在业务中捕获的异常，带上错误码（code） 错误原因（msg） 捕获到异常（cause）
      * @param resultInfo
      * @param cause
      * @param cause

@@ -18,7 +18,7 @@ public class ResultInfo {
     /**
      * 返回信息
      */
-    private String result;
+    private String msg;
 
     /**
      * 每个接口返回的具体数据
@@ -27,7 +27,7 @@ public class ResultInfo {
 
     public ResultInfo(){
         this.code = DefaultResultEnum.OK.getCode();
-        this.result = DefaultResultEnum.OK.getResult();
+        this.msg = DefaultResultEnum.OK.getMsg();
     }
     public ResultInfo(Object data) {
         this();
@@ -36,7 +36,7 @@ public class ResultInfo {
 
     public ResultInfo(Integer code, String result) {
         this.code = code;
-        this.result = result;
+        this.msg = result;
     }
 
 
