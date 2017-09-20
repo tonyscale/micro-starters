@@ -41,14 +41,14 @@ public class ValidateInterceptor extends HandlerInterceptorAdapter {
 
                 if(String.class.equals(parameterType) || ClassUtils.isPrimitiveOrWrapper(parameterType)){
 
-                    Validate validation = parameter.getAnnotation(Validate.class);
+                    Validate validation = parameter.getDeclaredAnnotation(Validate.class);
                     if(null == validation){
                         continue;
                     }
 
 
-                    RequestParam requestParam = parameter.getAnnotation(RequestParam.class);
-                    RequestHeader requestHeader = parameter.getAnnotation(RequestHeader.class);
+                    RequestParam requestParam = parameter.getDeclaredAnnotation(RequestParam.class);
+                    RequestHeader requestHeader = parameter.getDeclaredAnnotation(RequestHeader.class);
 
 
                     String paramName = pd.getParameterNames(hm.getMethod())[i];
@@ -59,12 +59,22 @@ public class ValidateInterceptor extends HandlerInterceptorAdapter {
                         if(!StringUtils.isEmpty(requestHeader.value())){
                             paramName = requestHeader.value();
                         }
+                        if(!StringUtils.isEmpty(requestHeader.name())){
+                            paramName = requestHeader.name();
+                        }
 
                         paramVal = request.getHeader(paramName);
 
-                    }else if(null != requestParam && !StringUtils.isEmpty(requestParam.value())){
+                    }else if(null != requestParam){
 
-                        paramName = requestParam.value();
+                        if(!StringUtils.isEmpty(requestParam.value())){
+                            paramName = requestParam.value();
+                        }
+
+                        if(!StringUtils.isEmpty(requestParam.name())){
+                            paramName = requestParam.name();
+                        }
+
                         paramVal = request.getParameter(paramName);
 
                     }
@@ -80,13 +90,13 @@ public class ValidateInterceptor extends HandlerInterceptorAdapter {
                     Field[] fields = parameter.getType().getDeclaredFields();
                     for (Field field : fields) {
 
-                        Validate validation = parameter.getAnnotation(Validate.class);
+                        Validate validation = field.getDeclaredAnnotation(Validate.class);
                         if(null == validation){
                             continue;
                         }
 
-                        ReqHeader reqHeader = field.getAnnotation(ReqHeader.class);
-                        ReqParam reqParam = field.getAnnotation(ReqParam.class);
+                        ReqHeader reqHeader = field.getDeclaredAnnotation(ReqHeader.class);
+                        ReqParam reqParam = field.getDeclaredAnnotation(ReqParam.class);
 
                         String paramVal;
 
