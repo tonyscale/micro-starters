@@ -13,6 +13,14 @@ import java.io.IOException;
 
 @Slf4j
 public class ExceptionHandleFilter implements Filter {
+
+
+    private ExceptionConfig exceptionConfig;
+
+    public ExceptionHandleFilter(ExceptionConfig exceptionConfig){
+        this.exceptionConfig = exceptionConfig;
+    }
+
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         log.info("ExceptionHandleFilter was added to the server");
@@ -44,6 +52,8 @@ public class ExceptionHandleFilter implements Filter {
                     resultInfo = ((BizException) cause).getResultInfo();
                 }else if(e instanceof BizException){
                     resultInfo = ((BizException) e).getResultInfo();
+                }else if(exceptionConfig.isLogEnable()){
+                    log.error("The fatal exception occur.",e);
                 }
 
                 ResponseUtil.toResponse((HttpServletResponse)response,resultInfo);

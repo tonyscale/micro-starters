@@ -2,6 +2,7 @@ package com.innei.boot.starter.frontends;
 
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.innei.boot.starter.frontends.cors.CorsConfig;
+import com.innei.boot.starter.frontends.exception.ExceptionConfig;
 import com.innei.boot.starter.frontends.exception.ExceptionHandleFilter;
 import com.innei.boot.starter.frontends.param.ParamModelArgumentsHandler;
 import com.innei.boot.starter.frontends.response.JsonHttpMessageConverter;
@@ -30,9 +31,11 @@ import java.util.Map;
 
 @Configuration
 @Slf4j
-@EnableConfigurationProperties(CorsConfig.class)
+@EnableConfigurationProperties({CorsConfig.class, ExceptionConfig.class})
 public class FrontendAutoConfiguration {
 
+    @Autowired
+    private ExceptionConfig exceptionConfig;
 
     @Autowired
     private CorsConfig corsConfig;
@@ -44,7 +47,7 @@ public class FrontendAutoConfiguration {
     public FilterRegistrationBean exceptionFilterRegistration() {
 
         FilterRegistrationBean registration = new FilterRegistrationBean();
-        registration.setFilter(new ExceptionHandleFilter());
+        registration.setFilter(new ExceptionHandleFilter(exceptionConfig));
         registration.setOrder(Ordered.HIGHEST_PRECEDENCE + 20);
         registration.setName("ExceptionHandleFilter");
         registration.setDispatcherTypes(DispatcherType.REQUEST, DispatcherType.FORWARD);
