@@ -87,7 +87,7 @@ public class FrontendAutoConfiguration {
     }
 
 
-    @Configuration
+    @Configuration("frontendMvcConfigure")
     @Order(Ordered.HIGHEST_PRECEDENCE)
     public class MvcConfigurer extends WebMvcConfigurerAdapter{
 

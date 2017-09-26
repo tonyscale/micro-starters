@@ -17,6 +17,8 @@
     <module>redis-expire-spring-boot-starter</module>
     <module>http-spring-boot-starter</module>
     <module>log-spring-boot-starter</module>
+    <module>pagehelper-spring-boot-starter</module>
+      <module>param-encrypt-spring-boot-starter</module>
 
   </modules>
 
@@ -28,7 +30,7 @@
 
   <properties>
 
-
+    <pageHelper.version>5.1.0</pageHelper.version>
     <guava.version>23.0</guava.version>
     <jackson.databind.version>2.8.8</jackson.databind.version>
     <spring-aspects.version>4.3.2.RELEASE</spring-aspects.version>
@@ -93,6 +95,12 @@
   <dependencyManagement>
 
     <dependencies>
+
+      <dependency>
+        <groupId>com.github.pagehelper</groupId>
+        <artifactId>pagehelper</artifactId>
+        <version>${pageHelper.version}</version>
+      </dependency>
 
       <dependency>
         <groupId>com.google.guava</groupId>
@@ -318,12 +326,12 @@
     <repository>
       <id>innei-releases</id>
       <name>Innei Releases Repository</name>
-      <url>http://103.72.167.83:8081/repository/maven-releases/</url>
+      <url>http://maven.innei.com/content/repositories/releases/</url>
     </repository>
     <snapshotRepository>
       <id>innei-snapshots</id>
-      <name>Nexus Snapshot Repository</name>
-      <url>http://103.72.167.83:8081/repository/maven-snapshots/</url>
+      <name>Innei Snapshot Repository</name>
+      <url>http://maven.innei.com/content/repositories/snapshots/</url>
     </snapshotRepository>
   </distributionManagement>
 </project>
