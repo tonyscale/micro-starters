@@ -11,7 +11,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
+
+import java.nio.charset.Charset;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Created by LIUMI969 on 2017/4/19.
@@ -23,12 +29,21 @@ import org.springframework.web.client.RestTemplate;
 @ConditionalOnBean(PoolingHttpClientConnectionManager.class)
 public class RestTemplateConfigure {
 
+    private static final String DEFAULT_RESET_TEMPLATE_CHARSET = "UTF-8";
+
     @Autowired
     private HttpConfig httpConfig;
 
     @Bean
     public RestTemplate restTemplate(ClientHttpRequestFactory factory) {
-        return new RestTemplate(factory);
+
+        RestTemplate restTemplate = new RestTemplate(factory);
+        List<HttpMessageConverter<?>> messageConverters = restTemplate.getMessageConverters();
+        messageConverters.removeIf(next -> next instanceof StringHttpMessageConverter);
+
+        messageConverters.add(new StringHttpMessageConverter(Charset.forName(DEFAULT_RESET_TEMPLATE_CHARSET)));
+
+        return restTemplate;
     }
 
     @Bean
