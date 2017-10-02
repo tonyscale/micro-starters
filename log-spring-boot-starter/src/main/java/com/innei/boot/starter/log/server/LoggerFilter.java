@@ -51,7 +51,11 @@ public class LoggerFilter implements Filter {
                 if(!CollectionUtils.isEmpty(logConfig.getServerHeaderParams())){
 
                     for (String headerParam : logConfig.getServerHeaderParams()) {
-                        headers.append(headerParam).append(":").append(hsr.getHeader(headerParam));
+                        headers.append("[")
+                               .append(headerParam)
+                               .append(":")
+                               .append(hsr.getHeader(headerParam))
+                               .append("] ");
                     }
 
                 }
